@@ -5,8 +5,10 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAuth, isAuthSelector } from "../store/slices/auth";
 
 const Login = () => {
   const {
@@ -19,8 +21,16 @@ const Login = () => {
 
   const mobileWidth = useMediaQuery("(max-width:769px)");
   const formWidth = mobileWidth ? "100%" : "50%";
+  const isAuth = useSelector(isAuthSelector);
+  const dispatch = useDispatch();
+
+  if (isAuth) {
+    return <Navigate to="/profile" />;
+  }
+
   const loginHelper = (data) => {
-    console.log(data)
+    dispatch(fetchAuth(data));
+    console.log(data);
   };
 
   return (
