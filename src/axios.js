@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:4444",
+  baseURL: "https://auth-mongo-back-production.up.railway.app",
 });
 
 instance.interceptors.request.use((config) => {
