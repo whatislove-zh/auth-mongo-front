@@ -1,2 +1,8 @@
 /*reset styles*/
 @use "./style/reset";
+
+/*layout*/
+@use "./style/layout";
+
+/*common styles*/
+@use "./style/common";
