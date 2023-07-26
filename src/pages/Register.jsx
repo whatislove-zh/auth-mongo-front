@@ -5,8 +5,10 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRegister, isAuthSelector } from "../store/slices/auth";
 
 const Register = () => {
   const {
@@ -19,8 +21,22 @@ const Register = () => {
 
   const mobileWidth = useMediaQuery("(max-width:769px)");
   const formWidth = mobileWidth ? "100%" : "50%";
-  const registerHelper = (data) => {
-    console.log(data)
+  const isAuth = useSelector(isAuthSelector);
+  const dispatch = useDispatch();
+
+  if (isAuth) {
+    return <Navigate to="/profile" />;
+  }
+
+  const registerHelper = async (data) => {
+    const action = await dispatch(fetchRegister(data));
+
+    if (!action.payload) {
+      return;
+    }
+    if ("token" in action.payload) {
+      localStorage.setItem("token", action.payload.token);
+    }
   };
 
   return (

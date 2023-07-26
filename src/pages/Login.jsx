@@ -37,7 +37,6 @@ const Login = () => {
     if ("token" in action.payload) {
       localStorage.setItem("token", action.payload.token);
     }
-    console.log(action);
   };
 
   return (
