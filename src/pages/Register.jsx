@@ -14,6 +14,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isValid },
   } = useForm({
     mode: "onBlur",
@@ -29,6 +30,9 @@ const Register = () => {
   }
 
   const registerHelper = async (data) => {
+    if (data.password !== data.passwordConfirm) {
+      return;
+    }
     const action = await dispatch(fetchRegister(data));
 
     if (!action.payload) {
@@ -182,6 +186,10 @@ const Register = () => {
               minLength: {
                 value: 5,
                 message: "Пароль має бути хочаб 5 симболів",
+              },
+              validate: (value) => {
+                const { password } = getValues();
+                return password === value || "Паролі повинні бути однаковими ";
               },
             })}
           />
