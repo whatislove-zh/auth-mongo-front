@@ -19,7 +19,9 @@ const Register = () => {
 
   const mobileWidth = useMediaQuery("(max-width:769px)");
   const formWidth = mobileWidth ? "100%" : "50%";
-  const registerHelper = () => {};
+  const registerHelper = (data) => {
+    console.log(data)
+  };
 
   return (
     <Box
@@ -29,6 +31,7 @@ const Register = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "75vh",
+        my: "15px",
       }}
     >
       <Box
@@ -38,8 +41,7 @@ const Register = () => {
           display: "flex",
           flexDirection: "column",
           width: formWidth,
-          margin: "15px",
-          gap: "20px",
+          gap: "10px",
         }}
       >
         <Typography align="center" sx={{ fontSize: "24px", fontWeight: "600" }}>
@@ -50,10 +52,11 @@ const Register = () => {
             {"Ім'я"}
           </Typography>
           <TextField
+            size="small"
             type="name"
             fullWidth
             placeholder="Ім'я"
-            helperText={errors?.firstName ? errors.firstName.message : ""}
+            helperText={errors?.firstName ? errors.firstName.message : " "}
             error={errors?.firstName ? true : false}
             {...register("firstName", {
               required: "Введіть своє ім'я",
@@ -69,10 +72,11 @@ const Register = () => {
             Прізвище
           </Typography>
           <TextField
+            size="small"
             type="name"
             fullWidth
             placeholder="Прізвище"
-            helperText={errors?.lastName ? errors.lastName.message : ""}
+            helperText={errors?.lastName ? errors.lastName.message : " "}
             error={errors?.lastName ? true : false}
             {...register("lastName", {
               required: "Введіть своє прізвище",
@@ -88,10 +92,11 @@ const Register = () => {
             Email
           </Typography>
           <TextField
+            size="small"
             type="email"
             fullWidth
             placeholder="email@example.com"
-            helperText={errors?.email ? errors.email.message : ""}
+            helperText={errors?.email ? errors.email.message : " "}
             error={errors?.email ? true : false}
             {...register("email", {
               required: "Введіть свій email",
@@ -107,15 +112,17 @@ const Register = () => {
             Номер телефону
           </Typography>
           <TextField
+            size="small"
             type="phone"
             fullWidth
             label="+380"
-            helperText={errors?.phone ? errors.phone.message : ""}
+            helperText={errors?.phone ? errors.phone.message : " "}
             error={errors?.phone ? true : false}
             {...register("phone", {
               required: "Введіть свій номер",
               pattern: {
-                value: /^[+]?3?[\s]?8?[\s]?\(?0\d{2}?\)?[\s]?\d{3}[\s|-]?\d{2}[\s|-]?\d{2}$/,
+                value:
+                  /^[+]?3?[\s]?8?[\s]?\(?0\d{2}?\)?[\s]?\d{3}[\s|-]?\d{2}[\s|-]?\d{2}$/,
                 message: "Номер введений невірно",
               },
             })}
@@ -126,10 +133,11 @@ const Register = () => {
             Пароль
           </Typography>
           <TextField
+            size="small"
             type="password"
             fullWidth
             placeholder="Пароль"
-            helperText={errors?.password ? errors.password.message : ""}
+            helperText={errors?.password ? errors.password.message : " "}
             error={errors?.password ? true : false}
             {...register("password", {
               required: "Введіть пароль",
@@ -145,11 +153,12 @@ const Register = () => {
             Підтвердження паролю
           </Typography>
           <TextField
+            size="small"
             type="password"
             fullWidth
             placeholder="Підтвердіть пароль"
             helperText={
-              errors?.passwordConfirm ? errors.passwordConfirm.message : ""
+              errors?.passwordConfirm ? errors.passwordConfirm.message : " "
             }
             error={errors?.passwordConfirm ? true : false}
             {...register("passwordConfirm", {

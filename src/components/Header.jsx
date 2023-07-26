@@ -7,7 +7,6 @@ const Header = () => {
       position="static"
       sx={{
         background: "none",
-        mb: "30px",
         p: "15px",
         display: "flex",
         flexDirection: "row",

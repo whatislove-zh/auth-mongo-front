@@ -19,7 +19,9 @@ const Login = () => {
 
   const mobileWidth = useMediaQuery("(max-width:769px)");
   const formWidth = mobileWidth ? "100%" : "50%";
-  const loginHelper = () => {};
+  const loginHelper = (data) => {
+    console.log(data)
+  };
 
   return (
     <Box
