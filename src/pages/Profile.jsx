@@ -14,7 +14,7 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.data);
-
+  
   if (!isAuth) {
     return <Navigate to="/" />;
   }

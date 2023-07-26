@@ -1,13 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../axios";
 
-export const fetchAuth = createAsyncThunk(
-  "auth/fetchUserData",
+export const fetchLogin = createAsyncThunk(
+  "auth/fetchLogin",
   async (params) => {
     const { data } = await axios.post("/login", params);
     return data;
   }
 );
+export const fetchAuth = createAsyncThunk("auth/fetchAuth", async () => {
+  const { data } = await axios.get("/auth");
+  return data;
+});
 
 const initialState = {
   status: "idle",
@@ -23,20 +27,34 @@ const authSlice = createSlice({
       state.data = null;
     },
   },
-  extraReducers: {
-    [fetchAuth.pending]: (state) => {
-      state.status = "loading";
-      state.error = null;
-    },
-    [fetchAuth.fulfilled]: (state, action) => {
-      state.status = "received";
-      state.error = null;
-      state.data = action.payload;
-    },
-    [fetchAuth.rejected]: (state, action) => {
-      state.status = "rejected";
-      state.error = action.error || action.meta.error;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchLogin.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(fetchLogin.fulfilled, (state, action) => {
+        state.status = "received";
+        state.error = null;
+        state.data = action.payload;
+      })
+      .addCase(fetchLogin.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.error || action.meta.error;
+      })
+      .addCase(fetchAuth.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(fetchAuth.fulfilled, (state, action) => {
+        state.status = "received";
+        state.error = null;
+        state.data = action.payload;
+      })
+      .addCase(fetchAuth.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.error || action.meta.error;
+      });
   },
 });
 

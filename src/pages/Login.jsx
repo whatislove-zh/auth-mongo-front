@@ -8,7 +8,7 @@ import {
 import { Link, Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuth, isAuthSelector } from "../store/slices/auth";
+import { fetchLogin, isAuthSelector } from "../store/slices/auth";
 
 const Login = () => {
   const {
@@ -28,9 +28,16 @@ const Login = () => {
     return <Navigate to="/profile" />;
   }
 
-  const loginHelper = (data) => {
-    dispatch(fetchAuth(data));
-    console.log(data);
+  const loginHelper = async (data) => {
+    const action = await dispatch(fetchLogin(data));
+
+    if (!action.payload) {
+      return;
+    }
+    if ("token" in action.payload) {
+      localStorage.setItem("token", action.payload.token);
+    }
+    console.log(action);
   };
 
   return (
